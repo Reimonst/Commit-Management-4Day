@@ -1,17 +1,8 @@
-# continue_widget
+# Tugas Aplikasi Profil - Hari 1 🚀
 
-A new Flutter project.
+Ini adalah hasil kerja hari pertama untuk bikin aplikasi profil pakai Flutter. 
 
-## Getting Started
+## Apa aja yang dikerjain?
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* **Pagi:** Bikin kerangka awal. Bikin file `main.dart` dan `profile_page.dart`. Isinya nyusun layar dasar pakai Scaffold, AppBar, foto profil, dan nama.
+* **Siang:** Ngerapiin kode (Extract Widget). Bagian foto dan nama dipisah jadi komponen sendiri (`ProfileAvatar` dan `ProfileInfo`) biar kode lebih rapi dan gampang dibaca.
