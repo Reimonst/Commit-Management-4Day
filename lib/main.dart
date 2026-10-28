@@ -23,14 +23,14 @@ class MainApp extends StatelessWidget {
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
-  final String userName = 'Raka Erlangga';
-  final String role = 'Mahasiswa';
+  final String userName = 'I Ketut Gunawan, S.Kom, M.T.I.';
+  final String role = 'Senior Backend Engineer & Dosen';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profil User'),
+        title: const Text('Profil Pengguna'),
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
         foregroundColor: Colors.white,
@@ -40,13 +40,55 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(width: double.infinity),
-            
-            // 1. Memanggil Custom Widget ProfileAvatar
             const ProfileAvatar(),
             const SizedBox(height: 20),
-            
-            // 2. Memanggil Custom Widget ProfileInfo dengan parameter
             ProfileInfo(userName: userName, role: role),
+            const SizedBox(height: 24),
+            
+            // Tombol Edit Profil
+            ElevatedButton.icon(
+              onPressed: () {}, 
+              icon: const Icon(Icons.edit),
+              label: const Text('Edit Profil'),
+            ),
+            const SizedBox(height: 24),
+
+            // Baris Statistik (Belum di-extract)
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.blue[50],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      const Text('15', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.blueAccent)),
+                      const SizedBox(height: 4),
+                      Text('Proyek', style: TextStyle(fontSize: 14, color: Colors.grey[600])),
+                    ],
+                  ),
+                  const SizedBox(width: 24),
+                  Column(
+                    children: [
+                      const Text('1.2K', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.blueAccent)),
+                      const SizedBox(height: 4),
+                      Text('Followers', style: TextStyle(fontSize: 14, color: Colors.grey[600])),
+                    ],
+                  ),
+                  const SizedBox(width: 24),
+                  Column(
+                    children: [
+                      const Text('42', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.blueAccent)),
+                      const SizedBox(height: 4),
+                      Text('Following', style: TextStyle(fontSize: 14, color: Colors.grey[600])),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -54,7 +96,6 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-// Hasil Extract 1: ProfileAvatar
 class ProfileAvatar extends StatelessWidget {
   const ProfileAvatar({super.key});
 
@@ -68,16 +109,11 @@ class ProfileAvatar extends StatelessWidget {
   }
 }
 
-// Hasil Extract 2: ProfileInfo
 class ProfileInfo extends StatelessWidget {
   final String userName;
   final String role;
 
-  const ProfileInfo({
-    super.key,
-    required this.userName,
-    required this.role,
-  });
+  const ProfileInfo({super.key, required this.userName, required this.role});
 
   @override
   Widget build(BuildContext context) {
