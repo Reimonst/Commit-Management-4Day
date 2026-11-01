@@ -26,7 +26,6 @@ class ProfilePage extends StatelessWidget {
   final String userName = 'I Ketut Gunawan, S.Kom, M.T.I.';
   final String role = 'Senior Backend Engineer & Dosen';
   
-  // Data dummy pengalaman kerja
   final List<String> experiences = const [
     'Senior Backend Engineer - EDC Bank DKI',
     'Backend & System Architect - Secure Payment EDC',
@@ -44,26 +43,33 @@ class ProfilePage extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
         child: Column(
           children: [
             const SizedBox(width: double.infinity),
             const ProfileAvatar(),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
             ProfileInfo(userName: userName, role: role),
             const SizedBox(height: 24),
             
+            // Tombol Edit Profil dengan aksi SnackBar
             ElevatedButton.icon(
-              onPressed: () {}, 
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Fitur edit belum aktif pada modul statis.'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              }, 
               icon: const Icon(Icons.edit),
               label: const Text('Edit Profil'),
             ),
-            const SizedBox(height: 24),
-
-            const ProfileStats(),
-            const SizedBox(height: 24),
             
-            // Judul Pengalaman Kerja
+            const SizedBox(height: 24),
+            const ProfileStats(),
+            const SizedBox(height: 32),
+            
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -71,33 +77,22 @@ class ProfilePage extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
-            const Divider(),
+            const Divider(height: 20, thickness: 1),
             
-            // List Pengalaman Kerja (Belum di-extract)
             Expanded(
               child: ListView.builder(
                 itemCount: experiences.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    elevation: 2,
-                    margin: const EdgeInsets.symmetric(vertical: 6),
-                    child: ListTile(
-                      leading: const Icon(Icons.work, color: Colors.blueAccent),
-                      title: Text(experiences[index]),
-                    ),
-                  );
+                  return ExperienceCard(experience: experiences[index]);
                 }
               ),
             ),
-            
           ],
         ),
       ),
     );
   }
 }
-
-// ... [Biarkan Custom Widget ProfileAvatar, ProfileInfo, ProfileStats, dan StatItem yang sudah ada sebelumnya di bagian bawah ini] ...
 
 class ProfileAvatar extends StatelessWidget {
   const ProfileAvatar({super.key});
@@ -132,15 +127,15 @@ class ProfileStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(color: Colors.blue[50], borderRadius: BorderRadius.circular(12)),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           StatItem(count: '15', label: 'Proyek'),
-          SizedBox(width: 24),
+          SizedBox(width: 32),
           StatItem(count: '1.2K', label: 'Followers'),
-          SizedBox(width: 24),
+          SizedBox(width: 32),
           StatItem(count: '42', label: 'Following'),
         ],
       ),
@@ -160,6 +155,22 @@ class StatItem extends StatelessWidget {
         const SizedBox(height: 4),
         Text(label, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
       ],
+    );
+  }
+}
+
+class ExperienceCard extends StatelessWidget {
+  final String experience;
+  const ExperienceCard({super.key, required this.experience});
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        leading: const Icon(Icons.work, color: Colors.blueAccent),
+        title: Text(experience),
+      ),
     );
   }
 }
