@@ -23,14 +23,11 @@ class MainApp extends StatelessWidget {
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
-  final String userName = 'I Ketut Gunawan, S.Kom, M.T.I.';
-  final String role = 'Senior Backend Engineer & Dosen';
+  final String userName = 'Raka Erlangga';
+  final String role = 'Mahasiswa Teknik Informatika';
   
   final List<String> experiences = const [
-    'Senior Backend Engineer - EDC Bank DKI',
-    'Backend & System Architect - Secure Payment EDC',
-    'Lead Developer - Aplikasi Sekurindo',
-    'Backend Engineer - Pengembangan Sistem E-money', 
+    'IT Support - Air Asia', 
   ];
 
   @override
