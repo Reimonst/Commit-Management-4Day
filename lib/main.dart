@@ -13,7 +13,12 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Aplikasi Profil',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+        // Tema utama menggunakan aksen Merah & Hitam
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.red,
+          primary: Colors.red,
+        ),
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: const ProfilePage(),
     );
@@ -26,8 +31,10 @@ class ProfilePage extends StatelessWidget {
   final String userName = 'Raka Erlangga';
   final String role = 'Mahasiswa Teknik Informatika';
   
+  final String photoUrl = 'https://th.bing.com/th/id/OIP.Ff7yTRxc28FnT_g7HOH5LgHaHh?w=168&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3';
+
   final List<String> experiences = const [
-    'IT Support - Air Asia', 
+    'IT Support AirAsia Indonesia'
   ];
 
   @override
@@ -36,7 +43,7 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Profil Pengguna'),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.black, // Kombinasi AppBar Hitam
         foregroundColor: Colors.white,
       ),
       body: Padding(
@@ -44,21 +51,30 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(width: double.infinity),
-            const ProfileAvatar(),
+            
+            // ProfileAvatar dengan parameter foto
+            ProfileAvatar(imageUrl: photoUrl),
+            
             const SizedBox(height: 16),
             ProfileInfo(userName: userName, role: role),
             const SizedBox(height: 24),
             
-            // Tombol Edit Profil dengan aksi SnackBar
+            // Tombol Merah dengan Teks Putih
             ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              ),
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Fitur edit belum aktif pada modul statis.'),
                     behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.black, // SnackBar Hitam
                   ),
                 );
-              }, 
+              },
               icon: const Icon(Icons.edit),
               label: const Text('Edit Profil'),
             ),
@@ -71,10 +87,10 @@ class ProfilePage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 'Pengalaman Kerja',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
               ),
             ),
-            const Divider(height: 20, thickness: 1),
+            const Divider(height: 20, thickness: 1, color: Colors.black12),
             
             Expanded(
               child: ListView.builder(
@@ -91,14 +107,25 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
+// ------------------------------------------
+// Custom Widgets
+// ------------------------------------------
+
 class ProfileAvatar extends StatelessWidget {
-  const ProfileAvatar({super.key});
+  final String imageUrl;
+
+  const ProfileAvatar({super.key, required this.imageUrl});
+
   @override
   Widget build(BuildContext context) {
-    return const CircleAvatar(
-      radius: 50,
-      backgroundColor: Colors.grey,
-      child: Icon(Icons.person, size: 50, color: Colors.white),
+    return CircleAvatar(
+      radius: 52,
+      backgroundColor: Colors.red, // Ring/Border Merah
+      child: CircleAvatar(
+        radius: 50,
+        backgroundColor: Colors.grey[300],
+        backgroundImage: NetworkImage(imageUrl), // Menggunakan gambar dari Internet
+      ),
     );
   }
 }
@@ -107,13 +134,22 @@ class ProfileInfo extends StatelessWidget {
   final String userName;
   final String role;
   const ProfileInfo({super.key, required this.userName, required this.role});
+  
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(userName, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+        Text(
+          userName, 
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black), 
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: 8),
-        Text(role, style: TextStyle(fontSize: 16, color: Colors.grey[700]), textAlign: TextAlign.center),
+        Text(
+          role, 
+          style: TextStyle(fontSize: 16, color: Colors.grey[800]), 
+          textAlign: TextAlign.center,
+        ),
       ],
     );
   }
@@ -121,11 +157,16 @@ class ProfileInfo extends StatelessWidget {
 
 class ProfileStats extends StatelessWidget {
   const ProfileStats({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
-      decoration: BoxDecoration(color: Colors.blue[50], borderRadius: BorderRadius.circular(12)),
+      decoration: BoxDecoration(
+        color: Colors.red[50], // Background lembut merah muda
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.red.shade100),
+      ),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -144,13 +185,20 @@ class StatItem extends StatelessWidget {
   final String count;
   final String label;
   const StatItem({super.key, required this.count, required this.label});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(count, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.blueAccent)),
+        Text(
+          count, 
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red),
+        ),
         const SizedBox(height: 4),
-        Text(label, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
+        Text(
+          label, 
+          style: const TextStyle(fontSize: 14, color: Colors.black87),
+        ),
       ],
     );
   }
@@ -159,14 +207,18 @@ class StatItem extends StatelessWidget {
 class ExperienceCard extends StatelessWidget {
   final String experience;
   const ExperienceCard({super.key, required this.experience});
+
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
-        leading: const Icon(Icons.work, color: Colors.blueAccent),
-        title: Text(experience),
+        leading: const Icon(Icons.work, color: Colors.red), // Ikon Merah
+        title: Text(
+          experience,
+          style: const TextStyle(color: Colors.black87),
+        ),
       ),
     );
   }
