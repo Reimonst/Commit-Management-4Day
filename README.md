@@ -27,5 +27,3 @@ Hari 4: Finishing & Interaksi
 Pagi: Styling akhir! Ngerapiin jarak (padding dan spasi pakai SizedBox) antar komponen biar proporsinya pas dan nggak dempet-dempetan.
 
 Siang: Nambahin aksi SnackBar. Jadi pas tombol "Edit Profil" dipencet, bakal muncul pesan pop-up kecil di bawah layar.
-
-Yeay, tugas aplikasinya sudah selesai dirangkai! 🎉
